@@ -1,6 +1,36 @@
 #include<bits/stdc++.h>
-
 using namespace std;
+
+//RECURSIVE APPROACH
+int minIndex(int arr[],int start,int n){
+    if(start==n-1)
+      return start;
+    
+    int minI=minIndex(arr,start+1,n);
+
+    return (arr[start]<arr[minI])? start : minI;
+}
+
+void recursiveSelectionSort(int arr[],int n,int index=0){
+
+  if(index==n-1){
+      cout << "After selection sort: " << "\n";
+    for (int i = 0; i < n; i++) {
+      cout << arr[i] << " ";
+    }
+    return;
+  }
+
+  int minI=minIndex(arr,index,n);
+
+  if(minI!=index) {
+    swap(arr[minI],arr[index]);
+  }
+
+  recursiveSelectionSort(arr,n,index+1);
+}
+
+//ITERATIVE APPROACH
 void selection_sort(int arr[], int n) {
   
   for(int i=0;i<n-1;i++){
@@ -29,6 +59,7 @@ int main() {
     cout << arr[i] << " ";
   }
   cout << "\n";
-  selection_sort(arr, n);
+  selection_sort(arr, n);//calling 
+  recursiveSelectionSort(arr,n);//calling
   return 0;
 }
